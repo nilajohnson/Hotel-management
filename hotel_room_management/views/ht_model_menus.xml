@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+
+ <menuitem id="ht" name="Hotel">
+
+      <menuitem id="ht_first_level_menu" name="Reception">
+        <menuitem id="ht_menu_action1" action="ht_action1"/>
+      </menuitem>
+      <menuitem id="ht_second_level_menu" name="Configuration">
+        <menuitem id="ht_menu_action2" action="ht_action2"/>
+        <menuitem id="ht_menu_action3" action="ht_action3"/>
+
+     </menuitem>
+
+  </menuitem>
+</odoo>
+

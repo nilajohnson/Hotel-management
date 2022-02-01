@@ -1,0 +1,252 @@
+<?xml version="1.0"?>
+<odoo>
+<record id="ht_action2" model="ir.actions.act_window">
+    <field name="name">Rooms</field>
+    <field name="res_model">room.model</field>
+</record>
+
+<!--form  room  -->
+    <record id="ht_model_form" model="ir.ui.view">
+        <field name="name">room.model.form</field>
+        <field name="model">room.model</field>
+        <field name="arch" type="xml">
+            <form string="hotel">
+            <sheet>
+                <group>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="price"/>
+                    </group>
+                     <group>
+                        <field name="currency_id"/>
+                    </group>
+                    <group>
+                        <field name="room_number"/>
+                    </group>
+                    <group>
+                        <field name="bed"/>
+                    </group>
+                    <group>
+                        <field name="facilities"/>
+                    </group>
+                     <group>
+                         <field name="available_beds" attrs="{'invisible': [('bed','!=','dormitory')] }"/>
+                    </group>
+                  </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+<!--    second accommodation  menu-->
+
+<record id="ht_action1" model="ir.actions.act_window">
+    <field name="name"> Accommodation</field>
+    <field name="res_model">accommodation.model</field>
+ </record>
+
+
+<!-- search accommodation  -->
+       <record id="ht1_model_formm" model="ir.ui.view">
+        <field name="name">accommodation.model.search</field>
+        <field name="model">accommodation.model</field>
+        <field name="arch" type="xml">
+            <search string="Search ">
+
+            <filter string="Bed single" name="single1"
+                    domain="[('bed', '=','single')]"/>
+            <filter string="Bed double" name="double1"
+                    domain="[('bed', '=','double')]"/>
+            <filter string="Bed dormitory" name="dormitory1"
+                    domain="[('bed', '=','dormitory')]"/>
+            <filter string="Available rooms" name="available room1"
+                    domain="[('check_out_date','!=',False)]"/>
+            </search>
+        </field>
+        </record>
+<!-- tree_accommodation    -->
+
+    <record id="ht1_model_tree" model="ir.ui.view">
+        <field name="name">accommodation.model.tree</field>
+        <field name="model">accommodation.model</field>
+        <field name="arch" type="xml">
+            <tree string="htt">
+                <field name="name"/>
+                <field name="guesttt"/>
+                <field name="room"/>
+                <field name="bed"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+<!--series-->
+    <record id="sequence_self_service" model="ir.sequence">
+   <field name="name">hotel_room</field>
+   <field name="code">hotel.service</field>
+   <field name="active">TRUE</field>
+   <field name="prefix">HM/ROOM/</field>
+   <field name="padding">4</field>
+   <field name="number_next">1</field>
+   <field name="number_increment">1</field>
+</record>
+
+<!--form 2 accommodation  -->
+    <record id="ht1_model_form" model="ir.ui.view">
+        <field name="name">accommodation.model.form</field>
+        <field name="model">accommodation.model</field>
+        <field name="arch" type="xml">
+            <form string="hotel2">
+            <header>
+                <button id= "button_check_in_date" name="check_inn"  type="object" string="Check_in" class="oe_stat_button" states="draft"/>
+                <button id= "button_check_out" name="check_outt"  type="object" string="Check_out" class="oe_stat_button" states="check in"/>
+                <button id= "button_cancel" name="cancell"  type="object" string="Cancel" class="oe_stat_button" />
+                <field name="state" widget="statusbar"/>
+            </header>
+            <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+               </div>
+               <group>
+
+                    <group>
+                        <field name="number_of_guests"/>
+                    </group>
+                   <group>
+                        <field name="guesttt" widget="res_partner_many2one" context="{'show_address': 1}"
+                         options='{"always_reload": True}'/>
+                   </group>
+
+
+                  <group>
+                        <field name="expected_date" states="draft,check in"/>
+                  </group>
+                   <group>
+                        <field name="expected_days" />
+                   </group>
+                   <group>
+                        <field name="bed"/>
+                   </group>
+
+                   <group>
+                        <field name="room"/>
+                   </group>
+                   <group>
+                        <field name="check_in_date"/>
+                   </group>
+                   <group>
+                         <field name="check_out_date" attrs="{'invisible': [('state','!=','check out')] }"/>
+
+                   </group>
+<!--                   <group>-->
+<!--                        <field name="address_proof"/>-->
+<!--                    </group>-->
+                    </group>
+
+
+                    <notebook>
+                        <page string="Guest information">
+
+                          <field name="tree_guest">
+                                <tree string="trees">
+
+                                     <field name="namee"/>
+                                     <field name="gender"/>
+                                     <field name="age"/>
+
+                                </tree>
+                          </field>
+                        </page>
+                    </notebook>
+
+            </sheet>
+<!--  chatter-->
+          <div class="oe_chatter" >
+         <field name="message_follower_ids" widget="mail_followers" />
+         <field name="message_ids" widget="mail_thread"/>
+          </div>
+
+            </form>
+        </field>
+    </record>
+
+
+
+<!--form3 guest-->
+
+<!--    <record id="ht_action3" model="ir.actions.act_window">-->
+<!--    <field name="name">Guest</field>-->
+<!--    <field name="res_model">guest.model</field>-->
+<!--    </record>-->
+
+<!--&lt;!&ndash; tree_guest    &ndash;&gt;-->
+
+<!--    <record id="ht2_model_tree" model="ir.ui.view">-->
+<!--        <field name="name">guest.model.tree</field>-->
+<!--        <field name="model">guest.model</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree string="h">-->
+<!--                <field name="guest_name"/>-->
+<!--                <field name="guest_address"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+<!--&lt;!&ndash;form guest&ndash;&gt;-->
+<!--    <record id="ht2_model_form" model="ir.ui.view">-->
+<!--        <field name="name">guest.model.form</field>-->
+<!--        <field name="model">guest.model</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="hotel3">-->
+<!--              <sheet>-->
+<!--                <group>-->
+<!--                    <group>-->
+<!--                        <field name="guest_name"/>-->
+<!--                    </group>-->
+<!--                     <group>-->
+<!--                        <field name="guest_address"/>-->
+<!--                    </group>-->
+<!--                   </group>-->
+<!--            </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+
+<!--facilities-->
+      <record id="ht_action3" model="ir.actions.act_window">
+    <field name="name">Facilities</field>
+    <field name="res_model">facilities.model</field>
+      </record>
+    <!-- tree_facilities    -->
+    <record id="ht3_model_tree" model="ir.ui.view">
+        <field name="name">facilities.model.tree</field>
+        <field name="model">facilities.model</field>
+        <field name="arch" type="xml">
+            <tree string="h">
+                <field name="facilities"/>
+            </tree>
+        </field>
+    </record>
+    <!--form facilities-->
+     <record id="ht12_model_form" model="ir.ui.view">
+        <field name="name">facilities.model</field>
+        <field name="model">facilities.model</field>
+        <field name="arch" type="xml">
+            <form string="hotel3">
+                <sheet>
+                  <group>
+                    <group>
+                        <field name="facilities"/>
+                    </group>
+                </group>
+             </sheet>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>
+
